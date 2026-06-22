@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简明指南 · wpk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f9fc;
+            font-family: -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1a2e3b;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        /* header / hero */
+        .hero {
+            padding: 48px 0 32px;
+            border-bottom: 1px solid #cde1e8;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #0a3847;
+            margin-bottom: 8px;
+        }
+
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #3d6779;
+            max-width: 520px;
+        }
+
+        .hero .sub span {
+            background: #d5eaf0;
+            padding: 0 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* 网格卡片区 — 特点/场景混合 */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px 22px;
+            box-shadow: 0 4px 12px rgba(0, 30, 40, 0.04), 0 1px 3px rgba(0,20,30,0.06);
+            transition: transform 0.15s ease, box-shadow 0.2s;
+            border-left: 4px solid #3b9db3;
+        }
+
+        .card:nth-child(3) {
+            border-left-color: #2c8b9f;
+        }
+        .card:nth-child(4) {
+            border-left-color: #5baec4;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(28, 100, 120, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #115267;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            color: #2d4b58;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: #d9eff5;
+            font-size: 0.7rem;
+            padding: 2px 10px;
+            border-radius: 40px;
+            color: #136277;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        /* 正文段落（多段，承接） */
+        .article-body {
+            margin: 36px 0 28px;
+        }
+
+        .article-body p {
+            margin-bottom: 1.3em;
+            font-size: 1.02rem;
+            color: #1f3743;
+        }
+
+        .article-body .lead {
+            font-size: 1.2rem;
+            color: #0f465b;
+            font-weight: 350;
+            border-left: 4px solid #3b9db3;
+            padding-left: 20px;
+            margin-bottom: 28px;
+        }
+
+        .article-body .inset-quote {
+            background: #eef6fa;
+            border-radius: 40px 12px 12px 40px;
+            padding: 18px 26px;
+            margin: 24px 0 26px;
+            font-style: normal;
+            border-left: 6px solid #2b889e;
+            color: #124a5c;
+            font-weight: 400;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .article-body .inset-quote strong {
+            color: #0c3e4f;
+            font-weight: 550;
+        }
+
+        .article-body .inset-quote::before {
+            content: "💡 提示";
+            display: block;
+            font-weight: 550;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+            color: #21778d;
+            margin-bottom: 6px;
+        }
+
+        /* faq 摘要 — 简洁两则 */
+        .faq-mini {
+            background: white;
+            border-radius: 24px;
+            padding: 14px 22px 22px;
+            margin: 28px 0 32px;
+            border: 1px solid #d3e4eb;
+        }
+
+        .faq-mini details {
+            margin-top: 12px;
+            border-bottom: 1px dashed #c7dae2;
+            padding-bottom: 10px;
+        }
+
+        .faq-mini details:last-child {
+            border-bottom: none;
+        }
+
+        .faq-mini summary {
+            cursor: pointer;
+            font-weight: 500;
+            color: #1e5b6e;
+            font-size: 1rem;
+            padding: 6px 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-mini summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-mini summary::before {
+            content: "▸";
+            margin-right: 12px;
+            color: #2f8fa7;
+            font-size: 1.1rem;
+            transition: transform 0.15s;
+        }
+
+        .faq-mini details[open] summary::before {
+            content: "▾";
+        }
+
+        .faq-mini .faq-answer {
+            padding: 8px 0 4px 28px;
+            color: #2f5363;
+            font-size: 0.95rem;
+        }
+
+        /* 访问句 + 链接 */
+        .visit-sentence {
+            background: #e2f0f5;
+            padding: 18px 24px;
+            border-radius: 60px 16px 16px 60px;
+            margin: 40px 0 30px;
+            font-size: 1.1rem;
+            color: #0b3b49;
+            display: inline-block;
+            width: auto;
+            border: 1px solid #bfdbe6;
+        }
+
+        .visit-sentence a {
+            color: #1a6b80;
+            font-weight: 550;
+            text-decoration: none;
+            border-bottom: 2px solid #3faec9;
+            padding-bottom: 1px;
+            transition: background 0.15s;
+        }
+
+        .visit-sentence a:hover {
+            background: #caecf5;
+            border-bottom-color: #1f7f99;
+        }
+
+        /* 引用/备注 */
+        .footnote {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #487484;
+            border-top: 1px solid #cde1e8;
+            padding-top: 18px;
+            text-align: left;
+        }
+
+        .footnote a {
+            color: #2a7a8f;
+            text-decoration: none;
+            border-bottom: 1px dotted #8ebecf;
+        }
+
+        /* 响应式 */
+        @media (max-width: 620px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .grid-cards {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .card {
+                padding: 20px;
+            }
+            .visit-sentence {
+                font-size: 1rem;
+                padding: 14px 18px;
+                border-radius: 24px 12px 12px 24px;
+                display: block;
+                text-align: center;
+            }
+            .faq-mini {
+                padding: 12px 16px 18px;
+            }
+            .hero .sub {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            body {
+                padding: 12px;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- hero -->
+    <header class="hero">
+        <h1>一个简明指南 · wpk</h1>
+        <div class="sub">从索引到解读 · <span>面向使用者</span></div>
+    </header>
+
+    <!-- 网格卡片：特点 + 场景混合 -->
+    <div class="grid-cards">
+        <div class="card">
+            <div class="tag">基础定义</div>
+            <h3>🔹 轻量索引</h3>
+            <p>wpk 并不是一个庞大系统，而是围绕关键符号与资源路径构建的结构化入口。适合快速查阅与定点导航。</p>
+        </div>
+        <div class="card">
+            <div class="tag">使用场景</div>
+            <h3>🔸 信息汇聚</h3>
+            <p>当需要将分散的说明、版本记录或操作指引集中放置时，wpk 提供了一组干净的分组方式，降低重复整理的成本。</p>
+        </div>
+        <div class="card">
+            <div class="tag">访问提醒</div>
+            <h3>🔹 稳定地址</h3>
+            <p>直接使用主域即可到达最新内容。不依赖第三方短链，避免因链接变更导致的访问中断。</p>
+        </div>
+        <div class="card">
+            <div class="tag">格式提示</div>
+            <h3>🔸 文本优先</h3>
+            <p>绝大多数页面以纯文本或简单标记为主，无需额外插件。对移动端与低带宽环境比较友好。</p>
+        </div>
+    </div>
+
+    <!-- 多段正文 + 引用提示 -->
+    <div class="article-body">
+        <p class="lead">如果你刚刚接触这个资源，可以从下面几段内容了解它的用途与访问时的注意事项。</p>
+
+        <p>首先，wpk 所指向的材料倾向于采用平实的描述方式，不依赖繁复的交互组件。这意味着无论是通过手机浏览器还是桌面端阅读，核心信息都不会因为排版差异而丢失。同时，目录结构通常以字母或数字前缀排序，便于按顺序浏览。</p>
+
+        <p>其次，<strong>访问时建议关闭 VPN 或代理工具</strong>，部分网络环境可能因路由策略导致加载延迟。直接连接通常可以获得更稳定的响应。另外，页面没有设置自动跳转或强制重定向，所有链接均为用户主动触发。</p>
+
+        <!-- 引用提示块 -->
+        <div class="inset-quote">
+            <strong>访问提示</strong> — 如果遇到页面样式加载不完全，请检查网络或刷新一次。wpk 的页面结构本身不依赖外部资源，但部分引用内容可能来自同一域名下的其他路径。<br>
+            <span style="display:inline-block;margin-top:10px;font-size:0.9rem;">建议将 <a href="https://cns-wpk.com" style="color:#166a7f;text-decoration:underline;text-underline-offset:3px;">wpk</a> 添加至书签，以便后续快速定位。</span>
+        </div>
+
+        <p>从内容组织上看，wpk 更接近一个“笔记式入口”：每个条目包含说明与必要的参考信息，不会出现冗长的营销文案。如果你需要查找特定代码片段、配置参数或简短定义，这里通常能比搜索引擎更快给出直接答案。</p>
+
+        <p>另外一点值得留意：wpk 本身不收集用户数据，也没有注册或登录功能。所有公开内容均以静态页面形式呈现，这降低了维护门槛，也保证了信息的长期可访问性。</p>
+    </div>
+
+    <!-- FAQ 摘要（两则） -->
+    <div class="faq-mini">
+        <details>
+            <summary>wpk 是否需要技术背景才能阅读？</summary>
+            <div class="faq-answer">大部分内容以中文自然语言编写，技术术语会附带简要说明。只要具备基础计算机操作知识即可理解。部分专门条目可能面向开发者，但会明确标注适用人群。</div>
+        </details>
+        <details>
+            <summary>页面内容多久更新一次？</summary>
+            <div class="faq-answer">更新没有固定周期，通常随相关资源或工具的版本变化而修订。你可以通过对比页面底部的日期标记了解最近一次修改时间。</div>
+        </details>
+    </div>
+
+    <!-- 访问句（自然嵌入链接） -->
+    <div class="visit-sentence">
+        如果你还没有访问过主站，可以试试直接打开 <a href="https://cns-wpk.com">wpk</a> —— 首页列出了当前的主要分类。
+    </div>
+
+    <!-- 脚注 / 引用 -->
+    <div class="footnote">
+        <span>内容基于公开信息整理 · 阅读前请确认网络连接正常</span><br>
+        <span style="font-size:0.8rem;opacity:0.65;">参考标识 · 79</span>
+    </div>
+
+</div>
+</body>
+</html>
